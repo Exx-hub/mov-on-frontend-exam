@@ -1,18 +1,26 @@
-import React, { useEffect, useState } from "react";
-import axios from "axios";
+import React, { useContext } from "react";
+import { useHistory, useLocation } from "react-router";
+import { UserContext } from "../contexts/Context";
 
 function Users() {
-	const [users, setUsers] = useState([]);
-	console.log(users);
+	const { users, setUsers } = useContext(UserContext);
+	// console.log(users);
 
-	const [editFirst, setEditFirst] = useState("Alvin");
-	const [editLast, setEditLast] = useState("Acosta");
-	const [editEmail, setEditEmail] = useState("alvinfloresacosta@gmail.com");
+	const history = useHistory();
+	const location = useLocation();
 
-	const handleDelete = (id) => {
-		axios
-			.delete(`https://reqres.in/api/users/{id}`)
-			.then((data) => console.log(data));
+	const createUserModal = () => {
+		history.push({
+			pathname: `/users/create`,
+			state: { background: location },
+		});
+	};
+
+	const deleteUserModal = (id) => {
+		history.push({
+			pathname: `/users/delete/${id}`,
+			state: { background: location },
+		});
 	};
 
 	// const handleDelete = (id) => {
@@ -20,48 +28,38 @@ function Users() {
 	// 	setUsers(deleteOne);
 	// };
 
-	const handleEdit = (id) => {
-		fetch(`https://reqres.in/api/users/{id}`, {
-			method: "PUT",
-			headers: {
-				"Content-Type": "application/json",
-			},
-			body: JSON.stringify({
-				first_name: editFirst,
-				last_name: editLast,
-				email: editEmail,
-			}),
-		})
-			.then((res) => res.json())
-			.then((data) => console.log(data));
-	};
-
-	// const handleEdit = (id) => {
-	// 	const editOne = users.map((user) => {
-	// 		if (user.id === id) {
-	// 			user.first_name = editFirst;
-	// 			user.last_name = editLast;
-	// 			user.email = editEmail;
-	// 		}
-	// 		return user;
-	// 	});
-
-	// 	setUsers(editOne);
+	// const editUserModal = (id) => {
+	// 	fetch(`https://reqres.in/api/users/{id}`, {
+	// 		method: "PUT",
+	// 		headers: {
+	// 			"Content-Type": "application/json",
+	// 		},
+	// 		body: JSON.stringify({
+	// 			first_name: editFirst,
+	// 			last_name: editLast,
+	// 			email: editEmail,
+	// 		}),
+	// 	})
+	// 		.then((res) => res.json())
+	// 		.then((data) => console.log(data));
 	// };
 
-	useEffect(() => {
-		const getUsers = async () => {
-			const page1 = await axios.get("https://reqres.in/api/users?page=1");
-			const page2 = await axios.get("https://reqres.in/api/users?page=2");
+	const editUserModal = (id) => {
+		const editOne = users.map((user) => {
+			if (user.id === id) {
+				user.first_name = "";
+				user.last_name = "";
+				user.email = "";
+			}
+			return user;
+		});
 
-			setUsers([...page1.data.data, ...page2.data.data]);
-		};
+		setUsers(editOne);
+	};
 
-		getUsers();
-	}, []);
 	return (
 		<div>
-			<button>Create User</button>
+			<button onClick={createUserModal}>Create User</button>
 			<h1>USERS</h1>
 
 			<table>
@@ -91,8 +89,8 @@ function Users() {
 									flexDirection: "column",
 								}}
 							>
-								<button onClick={() => handleEdit(user.id)}>Edit</button>{" "}
-								<button onClick={() => handleDelete(user.id)}>Delete</button>
+								<button onClick={() => editUserModal(user.id)}>Edit</button>{" "}
+								<button onClick={() => deleteUserModal(user.id)}>Delete</button>
 							</td>
 						</tr>
 					))}
