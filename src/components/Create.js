@@ -37,15 +37,15 @@ function Create() {
 				console.log(data.data.id);
 				alert(`id: ${data.data.id} , createdAt: ${data.data.createdAt}`);
 				setUsers([
-					...users,
 					{
 						avatar:
 							"http://counselingadvice.weebly.com/uploads/8/7/6/0/8760764/7826970_orig.gif",
 						email: values.email,
 						first_name: values.first_name,
-						id: data.data.id,
+						id: parseInt(data.data.id),
 						last_name: values.last_name,
 					},
+					...users,
 				]);
 			})
 			.catch((err) => console.log(err));
@@ -59,6 +59,7 @@ function Create() {
 		>
 			<div role="button" className="modal" onClick={(e) => e.stopPropagation()}>
 				<form>
+					<h3>First Name: </h3>
 					<input
 						type="text"
 						placeholder="Enter your first name"
@@ -66,6 +67,7 @@ function Create() {
 						value={values.first_name}
 						onChange={handleChange}
 					/>
+					<h3>Last Name: </h3>
 					<input
 						type="text"
 						placeholder="Enter your last name"
@@ -73,6 +75,7 @@ function Create() {
 						value={values.last_name}
 						onChange={handleChange}
 					/>
+					<h3>Email: </h3>
 					<input
 						type="email"
 						placeholder="Enter your email"

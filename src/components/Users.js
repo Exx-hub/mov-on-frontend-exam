@@ -61,7 +61,7 @@ function Users() {
 		<div>
 			<button onClick={createUserModal}>Create User</button>
 			<h1>USERS</h1>
-
+			{/* table rows should be max 20 rows, pagination  */}
 			<table>
 				<thead>
 					<tr>
