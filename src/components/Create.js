@@ -24,8 +24,6 @@ function Create() {
 	const handleCreate = (e) => {
 		e.preventDefault();
 
-		// console.log(values);
-
 		axios(`https://reqres.in/api/users`, {
 			method: "POST",
 			headers: {
@@ -56,9 +54,10 @@ function Create() {
 		<div role="button" className="modal-wrapper">
 			<div role="button" className="modal" onClick={(e) => e.stopPropagation()}>
 				<h2>CREATE USER</h2>
-				<form>
+				<form className="create__form">
 					<h3>First Name: </h3>
 					<input
+						autoFocus
 						type="text"
 						placeholder="Enter your first name"
 						name="first_name"
@@ -81,8 +80,16 @@ function Create() {
 						value={values.email}
 						onChange={handleChange}
 					/>
-					<button onClick={() => history.push("/users")}>Cancel</button>
-					<button onClick={handleCreate}>Create</button>
+					<br />
+					<button
+						className="cancel__button"
+						onClick={() => history.push("/users")}
+					>
+						Cancel
+					</button>
+					<button className="create__button" onClick={handleCreate}>
+						Create
+					</button>
 				</form>
 			</div>
 		</div>

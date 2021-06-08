@@ -44,8 +44,15 @@ function Delete() {
 					{currentUser?.first_name} {currentUser?.last_name}
 				</h3>
 				<h4>{currentUser?.email}</h4>
-				<button onClick={() => history.push("/users")}>Cancel</button>
-				<button onClick={handleDelete}>Delete</button>
+				<button
+					className="cancel__button"
+					onClick={() => history.push("/users")}
+				>
+					Cancel
+				</button>
+				<button className="create__button" onClick={handleDelete}>
+					Delete
+				</button>
 			</div>
 		</div>
 	);

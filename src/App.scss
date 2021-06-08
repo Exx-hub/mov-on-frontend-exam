@@ -1,0 +1,71 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600&display=swap");
+
+body,
+button {
+	font-family: "Montserrat", sans-serif;
+}
+
+.table__image {
+	width: 100px;
+}
+
+.modal-wrapper {
+	background-color: rgb(238, 238, 238);
+	text-align: center;
+	width: 50%;
+	height: 50vh;
+	overflow-y: scroll;
+	-webkit-overflow-scrolling: touch;
+
+	border: 1px solid lightgray;
+	border-radius: 5px;
+
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+}
+
+.modal-wrapper::-webkit-scrollbar {
+	display: none;
+}
+
+input {
+	padding: 5px;
+	border-radius: 5px;
+	outline: none;
+	border: none;
+}
+button {
+	cursor: pointer;
+}
+
+.cancel__button {
+	margin: 5px;
+	margin-top: 20px;
+	border-radius: 5px;
+	font-weight: bold;
+	border: 1px solid lightgray;
+	padding: 5px 10px;
+	background-color: white;
+}
+.create__button {
+	margin: 5px;
+	background-color: black;
+	color: white;
+	border-radius: 5px;
+	font-weight: bold;
+	border: none;
+	padding: 5px 10px;
+}
+
+@media screen and (max-width: 800px) {
+	.modal-wrapper {
+		width: 75%;
+		height: 75vh;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+	}
+}

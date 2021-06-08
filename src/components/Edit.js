@@ -60,9 +60,10 @@ function Edit() {
 		<div role="button" className="modal-wrapper">
 			<div role="button" className="modal" onClick={(e) => e.stopPropagation()}>
 				<h2>EDIT USER</h2>
-				<form>
+				<form className="edit__form">
 					<h3>First Name: </h3>
 					<input
+						autoFocus
 						type="text"
 						placeholder="Enter your first name"
 						name="first_name"
@@ -85,8 +86,16 @@ function Edit() {
 						value={values?.email}
 						onChange={handleChange}
 					/>
-					<button onClick={() => history.push("/users")}>Cancel</button>
-					<button onClick={handleEdit}>Edit</button>
+					<br />
+					<button
+						className="cancel__button"
+						onClick={() => history.push("/users")}
+					>
+						Cancel
+					</button>
+					<button className="create__button" onClick={handleEdit}>
+						Confirm
+					</button>
 				</form>
 			</div>
 		</div>

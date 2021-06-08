@@ -1,9 +1,11 @@
 import React from "react";
+import "../styles/Home.scss";
 
 function Home() {
 	return (
-		<div>
-			<h1>Alvin F. Acosta , alvinfloresacosta@gmail.com</h1>
+		<div className="home">
+			<h1>Alvin Acosta</h1>
+			<h3>alvinfloresacosta@gmail.com</h3>
 		</div>
 	);
 }

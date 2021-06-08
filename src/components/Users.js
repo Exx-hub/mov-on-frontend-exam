@@ -1,10 +1,10 @@
 import React, { useContext } from "react";
 import { useHistory, useLocation } from "react-router";
 import { UserContext } from "../contexts/Context";
+import "../styles/Users.scss";
 
 function Users() {
-	const { users, setUsers } = useContext(UserContext);
-	// console.log(users);
+	const { users } = useContext(UserContext);
 
 	const history = useHistory();
 	const location = useLocation();
@@ -30,41 +30,15 @@ function Users() {
 		});
 	};
 
-	// const editUserModal = (id) => {
-	// 	fetch(`https://reqres.in/api/users/{id}`, {
-	// 		method: "PUT",
-	// 		headers: {
-	// 			"Content-Type": "application/json",
-	// 		},
-	// 		body: JSON.stringify({
-	// 			first_name: editFirst,
-	// 			last_name: editLast,
-	// 			email: editEmail,
-	// 		}),
-	// 	})
-	// 		.then((res) => res.json())
-	// 		.then((data) => console.log(data));
-	// };
-
-	// const editUserModal = (id) => {
-	// 	const editOne = users.map((user) => {
-	// 		if (user.id === id) {
-	// 			user.first_name = "";
-	// 			user.last_name = "";
-	// 			user.email = "";
-	// 		}
-	// 		return user;
-	// 	});
-
-	// 	setUsers(editOne);
-	// };
-
 	return (
-		<div>
-			<button onClick={createUserModal}>Create User</button>
-			<h1>USERS</h1>
-			{/* table rows should be max 20 rows, pagination  */}
-			<table>
+		<div className="users">
+			<div className="users__heading">
+				<h1>Users</h1>
+				<button className="users__create" onClick={createUserModal}>
+					Create User
+				</button>
+			</div>
+			<table className="users__table">
 				<thead>
 					<tr>
 						<th>ID</th>
@@ -80,19 +54,28 @@ function Users() {
 						<tr key={user.id}>
 							<td>{user.id}</td>
 							<td>
-								<img src={user.avatar} alt="user avatar" />
+								<img
+									className="table__image"
+									src={user.avatar}
+									alt="user avatar"
+								/>
 							</td>
 							<td>{user.first_name}</td>
 							<td>{user.last_name}</td>
 							<td>{user.email}</td>
-							<td
-								style={{
-									display: "flex",
-									flexDirection: "column",
-								}}
-							>
-								<button onClick={() => editUserModal(user.id)}>Edit</button>{" "}
-								<button onClick={() => deleteUserModal(user.id)}>Delete</button>
+							<td>
+								<button
+									className="users__edit users__btn"
+									onClick={() => editUserModal(user.id)}
+								>
+									Edit
+								</button>{" "}
+								<button
+									className="users__delete users__btn"
+									onClick={() => deleteUserModal(user.id)}
+								>
+									Delete
+								</button>
 							</td>
 						</tr>
 					))}
