@@ -4,14 +4,13 @@ import { useHistory, useLocation } from "react-router-dom";
 import { UserContext } from "../contexts/Context";
 
 function Delete() {
-	const history = useHistory();
 	const [currentUser, setCurrentUser] = useState("");
 	const { users, setUsers } = useContext(UserContext);
+
+	const history = useHistory();
 	const location = useLocation();
 
 	const id = parseInt(location.pathname.slice(14));
-
-	console.log(currentUser);
 
 	const handleDelete = () => {
 		axios.delete(`https://reqres.in/api/users/${id}`).then((data) => {
@@ -40,8 +39,8 @@ function Delete() {
 					{currentUser?.first_name} {currentUser?.last_name}
 				</h3>
 				<h4>{currentUser?.email}</h4>
+				<button onClick={() => history.push("/users")}>Cancel</button>
 				<button onClick={handleDelete}>Delete</button>
-				<button onClick={() => history.goBack()}>Cancel</button>
 			</div>
 		</div>
 	);

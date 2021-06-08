@@ -23,10 +23,12 @@ function Users() {
 		});
 	};
 
-	// const handleDelete = (id) => {
-	// 	const deleteOne = users.filter((user) => user.id !== id);
-	// 	setUsers(deleteOne);
-	// };
+	const editUserModal = (id) => {
+		history.push({
+			pathname: `/users/edit/${id}`,
+			state: { background: location },
+		});
+	};
 
 	// const editUserModal = (id) => {
 	// 	fetch(`https://reqres.in/api/users/{id}`, {
@@ -44,18 +46,18 @@ function Users() {
 	// 		.then((data) => console.log(data));
 	// };
 
-	const editUserModal = (id) => {
-		const editOne = users.map((user) => {
-			if (user.id === id) {
-				user.first_name = "";
-				user.last_name = "";
-				user.email = "";
-			}
-			return user;
-		});
+	// const editUserModal = (id) => {
+	// 	const editOne = users.map((user) => {
+	// 		if (user.id === id) {
+	// 			user.first_name = "";
+	// 			user.last_name = "";
+	// 			user.email = "";
+	// 		}
+	// 		return user;
+	// 	});
 
-		setUsers(editOne);
-	};
+	// 	setUsers(editOne);
+	// };
 
 	return (
 		<div>

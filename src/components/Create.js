@@ -58,6 +58,7 @@ function Create() {
 			onClick={() => history.goBack()}
 		>
 			<div role="button" className="modal" onClick={(e) => e.stopPropagation()}>
+				<h2>CREATE USER</h2>
 				<form>
 					<h3>First Name: </h3>
 					<input
@@ -83,6 +84,7 @@ function Create() {
 						value={values.email}
 						onChange={handleChange}
 					/>
+					<button onClick={() => history.push("/users")}>Cancel</button>
 					<button onClick={handleCreate}>Create</button>
 				</form>
 			</div>
