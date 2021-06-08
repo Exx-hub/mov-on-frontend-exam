@@ -12,22 +12,27 @@ function Delete() {
 
 	const id = parseInt(location.pathname.slice(14));
 
-	const handleDelete = () => {
-		axios.delete(`https://reqres.in/api/users/${id}`).then((data) => {
-			console.log(data);
+	const handleDelete = (e) => {
+		e.preventDefault();
 
-			alert(`deleted: ${data.config.url}`);
-		});
+		axios
+			.delete(`https://reqres.in/api/users/${id}`)
+			.then((data) => {
+				console.log(data);
+
+				alert(`deleted: ${data.config.url}`);
+			})
+			.catch((err) => console.log(err));
 
 		const deleteOne = users.filter((user) => user.id !== id);
 
 		setUsers(deleteOne);
-		history.goBack();
+		history.push("/users");
 	};
 
 	useEffect(() => {
-		const currentUser = users.filter((user) => user.id === id);
-		setCurrentUser(currentUser[0]);
+		const current = users.filter((user) => user.id === id);
+		setCurrentUser(current[0]);
 	}, [id, users]);
 
 	return (

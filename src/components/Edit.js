@@ -1,12 +1,61 @@
-import React, { useState } from "react";
-import { useHistory } from "react-router-dom";
+import React, { useContext, useEffect, useState } from "react";
+import axios from "axios";
+import { useHistory, useLocation } from "react-router-dom";
+import { UserContext } from "../contexts/Context";
 
 function Edit() {
-	const history = useHistory();
-	const [values, setValues] = useState(null);
+	const [values, setValues] = useState({
+		first_name: "",
+		last_name: "",
+		email: "",
+	});
+	const { users, setUsers } = useContext(UserContext);
 
-	const handleChange = () => {};
-	const handleEdit = {};
+	const history = useHistory();
+	const location = useLocation();
+
+	const id = parseInt(location.pathname.slice(12));
+
+	const handleChange = (e) => {
+		const { name, value } = e.target;
+
+		setValues({ ...values, [name]: value });
+	};
+	const handleEdit = (e) => {
+		e.preventDefault();
+
+		axios(`https://reqres.in/api/users/{id}`, {
+			method: "PUT",
+			headers: {
+				"Content-Type": "application/json",
+			},
+			body: JSON.stringify(values),
+		})
+			.then((data) => {
+				console.log(data);
+				alert(`updatedAt: ${data.data.updatedAt}`);
+			})
+			.catch((err) => console.log(err));
+
+		const updatedUsers = users.map((item) => {
+			if (item.id === id) {
+				item.first_name = values.first_name;
+				item.last_name = values.last_name;
+				item.email = values.email;
+			}
+			return item;
+		});
+
+		setUsers(updatedUsers);
+
+		history.push("/users");
+	};
+
+	useEffect(() => {
+		const currentUser = users.filter((user) => user.id === id);
+		setValues(currentUser[0]);
+	}, [id, users]);
+
 	return (
 		<div role="button" className="modal-wrapper">
 			<div role="button" className="modal" onClick={(e) => e.stopPropagation()}>
@@ -17,7 +66,7 @@ function Edit() {
 						type="text"
 						placeholder="Enter your first name"
 						name="first_name"
-						// value={values.first_name}
+						value={values?.first_name}
 						onChange={handleChange}
 					/>
 					<h3>Last Name: </h3>
@@ -25,7 +74,7 @@ function Edit() {
 						type="text"
 						placeholder="Enter your last name"
 						name="last_name"
-						// value={values.last_name}
+						value={values?.last_name}
 						onChange={handleChange}
 					/>
 					<h3>Email: </h3>
@@ -33,11 +82,11 @@ function Edit() {
 						type="email"
 						placeholder="Enter your email"
 						name="email"
-						// value={values.email}
+						value={values?.email}
 						onChange={handleChange}
 					/>
-					{/* <button onClick={handleEdit}>Edit</button> */}
 					<button onClick={() => history.push("/users")}>Cancel</button>
+					<button onClick={handleEdit}>Edit</button>
 				</form>
 			</div>
 		</div>

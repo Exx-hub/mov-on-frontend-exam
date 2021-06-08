@@ -47,16 +47,13 @@ function Create() {
 					},
 					...users,
 				]);
+				history.push("/users");
 			})
 			.catch((err) => console.log(err));
 	};
 
 	return (
-		<div
-			role="button"
-			className="modal-wrapper"
-			onClick={() => history.goBack()}
-		>
+		<div role="button" className="modal-wrapper">
 			<div role="button" className="modal" onClick={(e) => e.stopPropagation()}>
 				<h2>CREATE USER</h2>
 				<form>
